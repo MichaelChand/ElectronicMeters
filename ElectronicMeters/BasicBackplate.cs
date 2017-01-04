@@ -21,11 +21,16 @@ namespace ElectronicMeters
 
         public virtual void GenerateArc()
         {
+            Draw(DrawLine, 1);
+        }
+
+        private void Draw(Action<Line, int, double> drawAction, int startIndex)
+        {
             double granularity = _actuatorModel.FSD / 10.0f;
-            for(int i = 1; i < 11; i++)
+            for (int i = startIndex; i < 11; i++)
             {
                 Line arcLine = new Line();
-                DrawLine(arcLine, i, granularity);
+                drawAction(arcLine, i, granularity);
 
                 _callback.Invoke(arcLine);
             }
@@ -42,14 +47,7 @@ namespace ElectronicMeters
 
         public virtual void GenerateMarking()
         {
-            double granularity = _actuatorModel.FSD / 10.0f;
-            for (int i = 0; i < 11; i++)
-            {
-                Line arcLine = new Line();
-                DrawMark(arcLine, i, granularity);
-
-                _callback.Invoke(arcLine);
-            }
+            Draw(DrawMark, 0);
         }
 
         protected virtual void DrawMark(Line arcLine, int position, double granularity)
