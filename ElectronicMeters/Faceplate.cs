@@ -17,7 +17,8 @@ namespace ElectronicMeters
 
         public void SetMargin(double width, double height, double offset)
         {
-           _faceplateModel.Margin = new System.Windows.Thickness(width/2.0f, height + offset, 0, 0);
+            System.Windows.Thickness thickness = new System.Windows.Thickness(0, height - offset, 0, 0);
+            _faceplateModel.Margin = thickness;
         }
     }
 }

@@ -24,6 +24,8 @@ namespace ElectronicMeters
             _actuatorModel.Range = _actuatorModel.Max - _actuatorModel.Min;
             _actuatorModel.Granularity = FSD / _actuatorModel.Range;
             _actuatorModel.Center = _actuatorModel.Width / 2.0f;
+            _actuatorModel.X2 = _actuatorModel.Width / 2.0;
+            _actuatorModel.Y2 = _actuatorModel.Height - 20;
         }
 
         public void Update(double deltaValue)

@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:ElectronicMeters"
              x:Name="ElectronicMeterControl"
              mc:Ignorable="d" 
-             d:DesignHeight="120" d:DesignWidth="200" SizeChanged="Galvanometer_SizeChanged">
+             d:DesignHeight="120" d:DesignWidth="200" SizeChanged="Galvanometer_SizeChanged" Loaded="Galvanometer_Loaded">
     <Grid x:Name="BoxGrid">
-        <Grid x:Name="MeterGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100" Width="200" Background="White">
-            <Line x:Name="lnNeedle" X1="{Binding ActuatorModel.X1, ElementName=ElectronicMeterControl}" Y1="{Binding ActuatorModel.Y1, ElementName=ElectronicMeterControl}" X2="100" Y2="100" Stroke="Black" StrokeThickness="1" Loaded="Galvanometer_Loaded"/>
-            <Ellipse x:Name="ellNeedleCover" Fill="Black" Width="{Binding _faceplateModel.Width, ElementName=ElectronicMeterControl}" Height="{Binding _faceplateModel.Height, ElementName=ElectronicMeterControl}" Margin="0,85,0,0" Opacity="0.7"/>
+        <Grid x:Name="MeterGrid">
+            <Line x:Name="lnNeedle" X1="{Binding ActuatorModel.X1, ElementName=ElectronicMeterControl}" Y1="{Binding ActuatorModel.Y1, ElementName=ElectronicMeterControl}" X2="{Binding ActuatorModel.X2, ElementName=ElectronicMeterControl}" Y2="{Binding ActuatorModel.Y2, ElementName=ElectronicMeterControl}" Stroke="Black" StrokeThickness="1"/>
+            <Ellipse x:Name="ellNeedleCover" Fill="Black" Width="{Binding _faceplateModel.Width, ElementName=ElectronicMeterControl}" Height="{Binding _faceplateModel.Height, ElementName=ElectronicMeterControl}" Margin="{Binding _faceplateModel.Margin, ElementName=ElectronicMeterControl}" Opacity="0.75"/>
         </Grid>
-        <Grid x:Name="TitleGrid" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <TextBox x:Name="tbTitle" Text="Title" Margin="0,0,0,0" Height="20" Width="200"/>
+        <Grid x:Name="TitleGrid" VerticalAlignment="Bottom">
+            <TextBox x:Name="tbTitle" Text="{Binding _faceplateModel.Title, ElementName=ElectronicMeterControl}" Margin="0,0,0,0" Height="20" Width="200"/>
         </Grid>
     </Grid>
 </UserControl>

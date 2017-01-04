@@ -11,9 +11,20 @@ namespace ElectronicMeters
     public class FaceplateModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private Thickness _thickness = new Thickness(0, 85, 0, 0);
+        private Thickness _thickness = new Thickness(0, 0, 0, 0);
         private double _width = 30;
         private double _height = 30;
+        private string _title = "Meter Name";
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                OnPropertyChanged("Title");
+            }
+        }
 
         public Thickness Margin
         {
@@ -21,7 +32,7 @@ namespace ElectronicMeters
             set
             {
                 _thickness = value;
-                OnPropertyChanged("MarginSetup");
+                OnPropertyChanged("Margin");
             }
         }
 

@@ -23,6 +23,7 @@ namespace ElectronicMeters
         public static readonly DependencyProperty DeltaValueDepedencyObject = DependencyProperty.Register("DeltaValue", typeof(double), typeof(Galvanometer), new PropertyMetadata((double)0.0, MeterUpdateCallback));
         public static readonly DependencyProperty MaxDepedencyObject = DependencyProperty.Register("Max", typeof(double), typeof(Galvanometer), new PropertyMetadata((double)0.0, RangeUpdateCallback));
         public static readonly DependencyProperty MinDepedencyObject = DependencyProperty.Register("Min", typeof(double), typeof(Galvanometer), new PropertyMetadata((double)0.0, RangeUpdateCallback));
+        public static readonly DependencyProperty TitleDepedencyObject = DependencyProperty.Register("Title", typeof(string), typeof(Galvanometer), new PropertyMetadata("Meter Name", TitleUpdateCallback));
         public ActuatorModel ActuatorModel { get; set; }
         private ActuatorControl _actuatorControl;
         public FaceplateModel _faceplateModel { get; set; }
@@ -32,6 +33,12 @@ namespace ElectronicMeters
         {
             get { return (double)GetValue(DeltaValueDepedencyObject); }
             set { SetValue(DeltaValueDepedencyObject, value); }
+        }
+
+        public string Title
+        {
+            get { return (string)GetValue(TitleDepedencyObject); }
+            set { SetValue(TitleDepedencyObject, value); }
         }
 
         public double Max
@@ -48,11 +55,20 @@ namespace ElectronicMeters
 
         public Galvanometer()
         {
-            ActuatorModel = new ActuatorModel();
-            _faceplateModel = new FaceplateModel();
+            InstanceInitializations();
             InitializeComponent();
             _actuatorControl = new ActuatorControl(ActuatorModel);
-            SetupFaceplate();
+        }
+
+        private void InstanceInitializations()
+        {
+            ActuatorModel = new ActuatorModel();
+            _faceplateModel = new FaceplateModel();
+        }
+
+        public static void TitleUpdateCallback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            (sender as Galvanometer)._faceplateModel.Title = (sender as Galvanometer).Title;
         }
 
         public static void RangeUpdateCallback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -78,8 +94,8 @@ namespace ElectronicMeters
 
         private void Galvanometer_Loaded(object sender, RoutedEventArgs e)
         {
-            SetupFaceplate();
             ZeroMeter();
+            SetupFaceplate();
         }
 
         private void SetupFaceplate()
@@ -87,6 +103,7 @@ namespace ElectronicMeters
             _faceplateModel.Height = 30;
             _faceplateModel.Width = 30;
             _faceplate = new Faceplate(_faceplateModel);
+            _faceplate.SetMargin(0, ActuatorModel.Height - 20, 15);
         }
 
         private void ZeroMeter()
@@ -100,6 +117,7 @@ namespace ElectronicMeters
         private void Galvanometer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ZeroMeter();
+            SetupFaceplate();
         }
     }
 }

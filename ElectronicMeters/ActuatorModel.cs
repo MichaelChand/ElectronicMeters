@@ -15,6 +15,8 @@ namespace ElectronicMeters
         private double _y1;
         private double _x2;
         private double _y2;
+        private double _width;
+        private double _height;
 
         public double X1
         {
@@ -56,10 +58,27 @@ namespace ElectronicMeters
             }
         }
 
+        public double Width
+        {
+            get { return _width; }
+            set
+            {
+                _width = value;
+                OnPropertyChanged("Width");
+            }
+        }
+
+        public double Height
+        {
+            get { return _height; }
+            set
+            {
+                _height = value;
+                OnPropertyChanged("Height");
+            }
+        }
         public double Max { get; set; }
         public double Min { get; set; }
-        public double Width { get; set; }
-        public double Height { get; set; }
         public double Radius { get; set; }
         public double Granularity { get; set; }
         public double Range { get; set; }
