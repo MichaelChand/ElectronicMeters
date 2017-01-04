@@ -10,6 +10,8 @@ namespace ElectronicMeters
     public class ActuatorModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public readonly double FSD = 90;
+        public readonly double ZSD = 180 - 45;
 
         private double _x1;
         private double _y1;

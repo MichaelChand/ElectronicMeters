@@ -66,6 +66,11 @@ namespace ElectronicMeters
             _faceplateModel = new FaceplateModel();
         }
 
+        private void AddToMeterGrid(UIElement element)
+        {
+            MeterGrid.Children.Add(element);
+        }
+
         public static void TitleUpdateCallback(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             (sender as Galvanometer)._faceplateModel.Title = (sender as Galvanometer).Title;
@@ -89,13 +94,15 @@ namespace ElectronicMeters
 
         private void Update()
         {
-            _actuatorControl?.Update(DeltaValue);
+            if(_actuatorControl != null)
+                _actuatorControl.Update(DeltaValue);
         }
 
         private void Galvanometer_Loaded(object sender, RoutedEventArgs e)
         {
             ZeroMeter();
             SetupFaceplate();
+            DrawBackplate();
         }
 
         private void SetupFaceplate()
@@ -114,10 +121,17 @@ namespace ElectronicMeters
             _actuatorControl.Update(ActuatorModel.Min);
         }
 
+        private void DrawBackplate()
+        {
+            IBackplate backplate = new BasicBackplate(ActuatorModel, AddToMeterGrid);
+            backplate.GeneratePlate();
+        }
+
         private void Galvanometer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ZeroMeter();
             SetupFaceplate();
+            DrawBackplate();
         }
     }
 }
