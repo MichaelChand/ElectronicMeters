@@ -21,7 +21,7 @@ namespace ElectronicMeters
 
         public virtual void GenerateArc()
         {
-            Draw(DrawLine, 1);
+            Draw(DrawArcLine, 1);
         }
 
         private void Draw(Action<Line, int, double> drawAction, int startIndex)
@@ -36,7 +36,7 @@ namespace ElectronicMeters
             }
         }
 
-        protected virtual void DrawLine(Line arcLine, int position, double granularity)
+        protected virtual void DrawArcLine(Line arcLine, int position, double granularity)
         {
             arcLine.X1 = _actuatorModel.Center + GetXFromDeg(_actuatorModel.ZSD - ((position - 1) * granularity), _actuatorModel.Radius - 15);
             arcLine.Y1 = (_actuatorModel.Height - 20) -  GetYFromDeg(_actuatorModel.ZSD - ((position - 1) * granularity), _actuatorModel.Radius - 15);

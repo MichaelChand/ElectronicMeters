@@ -22,7 +22,7 @@ namespace ElectronicMeters
             _actuatorModel.Range = _actuatorModel.Max - _actuatorModel.Min;
             _actuatorModel.Granularity = _actuatorModel.FSD / _actuatorModel.Range;
             _actuatorModel.Center = _actuatorModel.Width / 2.0f;
-            _actuatorModel.X2 = _actuatorModel.Width / 2.0;
+            _actuatorModel.X2 = _actuatorModel.Center;
             _actuatorModel.Y2 = _actuatorModel.Height - 20;
         }
 
@@ -36,13 +36,13 @@ namespace ElectronicMeters
         private void MoveNeedle()
         {
             _actuatorModel.X1 = _actuatorModel.Center + GetXFromDeg(_actuatorModel.ZSD - _actuatorModel.DeltaAngle, _actuatorModel.Radius);
-            _actuatorModel.Y1 = _actuatorModel.Center - GetYFromDeg(_actuatorModel.ZSD - _actuatorModel.DeltaAngle, _actuatorModel.Radius);
+            _actuatorModel.Y1 = (_actuatorModel.Height - 20) - GetYFromDeg(_actuatorModel.ZSD - _actuatorModel.DeltaAngle, _actuatorModel.Radius);
         }
 
         private double ValueValidate(double value)
         {
             return value <= _actuatorModel.Min ? 0 : 
-                            value >= _actuatorModel.Max ? _actuatorModel.Range: 
+                            value >= _actuatorModel.Max ? _actuatorModel.Range : 
                                      value - _actuatorModel.Min; 
         }
 
